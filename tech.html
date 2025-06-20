@@ -1,68 +1,229 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-  <meta charset="UTF-8">
-  <title>தொழில்நுட்பம் | உள்ளாட்சி தீபம்</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap" rel="stylesheet">
-  <style>
-    body { font-family:'Noto Sans Tamil'; background:#fffdf7; margin:0; padding:0 20px; }
-    h1 { text-align:center; color:#0066cc; font-size:34px; margin:25px 0; border-bottom:3px solid #0088ee; padding-bottom:10px; }
-    .news-card { display:flex; background:#f0f8ff; border:1px solid #cde; border-left:5px solid #0088ee; border-radius:12px; padding:20px; margin:20px auto; max-width:1000px; box-shadow:0 4px 8px rgba(0,0,0,0.08); gap:15px; transition:transform .3s; }
-    .news-card:hover { transform:scale(1.01); }
-    .news-content { flex:3; }
-    .news-title { color:#004080; font-size:20px; font-weight:bold; margin-bottom:10px; }
-    .news-summary { background:#e8f4ff; padding:10px 12px; border-radius:8px; font-size:16px; line-height:1.6; text-align:justify; }
-    .read-more { background:#0088ee; color:white; padding:6px 14px; border:none; border-radius:20px; font-size:14px; margin-top:10px; cursor:pointer; }
-    .read-more:hover { background:#005bb5; }
-    .full-text { display:none; }
-    .news-image { flex:1; max-width:25%; }
-    .news-image img { width:100%; border-radius:10px; box-shadow:0 3px 6px rgba(0,0,0,0.12); }
-    @media(max-width:768px){ .news-card { flex-direction:column; } .news-image { max-width:100%; margin-top:12px; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>உள்ளாட்சி தீபம் - தொழில்நுட்பம்</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Latha', 'Vijaya', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background-color: #c00;
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .home-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        
+        .page-title {
+            margin: 0 auto;
+            font-size: 20px;
+            text-align: center;
+            padding-right: 40px; /* Balance for home link */
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 10px;
+        }
+        
+        .news-item {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .news-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .news-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .news-content {
+            padding: 15px;
+        }
+        
+        .news-time {
+            color: #c00;
+            font-size: 12px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .news-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #222;
+        }
+        
+        .news-summary {
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #444;
+        }
+        
+        .news-summary.short {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .news-summary.full {
+            display: none;
+        }
+        
+        .read-more-btn {
+            color: #c00;
+            background: none;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0;
+            font-weight: bold;
+        }
+        
+        .read-more-btn::after {
+            content: " ▼";
+            font-size: 12px;
+        }
+        
+        .read-more-btn.expanded::after {
+            content: " ▲";
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 750px;
+                margin: 0 auto;
+            }
+            
+            .news-item {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>🖥 தொழில்நுட்ப செய்திகள்</h1>
-  <div id="news-container"></div>
-  <script>
-    const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://tamil.oneindia.com/rss/feeds/tamil-technology-fb.xml";
-    fetch(rssUrl)
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("news-container");
-        data.items.slice(0,10).forEach(item => {
-          const card = document.createElement("div");
-          card.className = "news-card";
+    <header class="header">
+        <a href="index.html" class="home-link">⬅ முகப்பு</a>
+        <h1 class="page-title">உள்ளாட்சி தீபம் - தொழில்நுட்பம்</h1>
+    </header>
+    
+    <div class="container" id="news-container">
+        <!-- News items will be loaded here -->
+        <div class="loading">செய்திகள் ஏற்றப்படுகின்றன...</div>
+    </div>
 
-          let img = item.thumbnail || (item.description.match(/<img[^>]+src="([^">]+)"/) || [])[1] || "";
+    <script>
+        // Sample technology news data in Tamil (replace with actual RSS feed)
+        const techNewsData = [
+            {
+                title: "ஆப்பிள் நிறுவனம் புதிய AI செயலிகளை அறிமுகப்படுத்தியது",
+                summary: "ஆப்பிள் நிறுவனம் தனது வருடாந்திர டெவலப்பர் மாநாட்டில் பல புதிய AI செயலிகளை அறிமுகப்படுத்தியுள்ளது. இந்த புதிய செயலிகள் iOS 18 இல் இணைக்கப்படும் என்று நிறுவனம் தெரிவித்துள்ளது. இதில் முக்கியமாக சிறப்பு AI சிப் அடங்கும். இந்த செயலிகள் பயனர்களின் தினசரி பணிகளை எளிதாக்கும் என எதிர்பார்க்கப்படுகிறது. குறிப்பாக புகைப்படங்களை திருத்துதல், உரையாடல்களை மொழிபெயர்த்தல் போன்றவை இன்னும் துல்லியமாக இருக்கும். ஆப்பிள் நிறுவனத்தின் தலைமை நிர்வாக அதிகாரி டிம் குக் இந்த புதிய செயலிகளை வெளியிட்டு பேசினார்.",
+                image: "https://via.placeholder.com/600x400/cccccc/333333?text=ஆப்பிள்+AI",
+                time: "4 மணி நேரம் முன்பு"
+            },
+            {
+                title: "சாம்சங் புதிய கேலக்ஸி ஃபோல்ட் 6 ரகத்தை அறிமுகப்படுத்தியது",
+                summary: "சாம்சங் நிறுவனம் தனது புதிய மடிக்கும் ஸ்மார்ட்போன் கேலக்ஸி ஃபோல்ட் 6 ஐ அதிகாரப்பூர்வமாக அறிமுகப்படுத்தியுள்ளது. இந்த புதிய மாதிரியில் மேம்பட்ட செயலி, நீண்ட நேரம் வரை பேட்டரி ஆயுள் மற்றும் மேம்பட்ட கேமரா அமைப்பு ஆகியவை உள்ளன. இந்த ஃபோன் 256GB மற்றும் 512GB விருப்பங்களில் கிடைக்கும். விலை ரூ.1,50,000 முதல் ரூ.1,80,000 வரை இருக்கும் என எதிர்பார்க்கப்படுகிறது. இந்த ஃபோன் ஜூலை 15ம் தேதி முதல் முன்பதிவு செய்யலாம். சாம்சங் இந்தியாவில் தனது உற்பத்தி ஆலைகளில் இதை தயாரிக்கிறது. இந்த ஃபோன் 5G தொழில்நுட்பத்துடன் வருகிறது.",
+                image: "https://via.placeholder.com/600x400/cccccc/333333?text=சாம்சங்+ஃபோல்ட்6",
+                time: "8 மணி நேரம் முன்பு"
+            },
+            {
+                title: "டெஸ்லா நிறுவனம் இந்தியாவில் தனது முதல் ஆலையை நிறுவும்",
+                summary: "மின்சார வாகனத் தயாரிப்பாளர் டெஸ்லா நிறுவனம் இந்தியாவில் தனது முதல் உற்பத்தி ஆலையை நிறுவ உள்ளது. இந்த ஆலை குஜராத் மாநிலத்தில் அமைக்கப்படும் என்று மாநில முதல்வர் அறிவித்துள்ளார். இந்த ஆலை ஒரு வருடத்திற்குள் செயல்பாட்டுக்கு வரும் என எதிர்பார்க்கப்படுகிறது. இதில் ஆரம்பத்தில் ஆண்டுக்கு 5 லட்சம் வாகனங்கள் தயாரிக்கப்படும். இந்த திட்டத்திற்காக டெஸ்லா $2 பில்லியன் முதலீடு செய்யும். இந்த ஆலையில் உள்ளூர் மக்களுக்கு 10,000 வேலைவாய்ப்புகள் உருவாகும். டெஸ்லாவின் இந்திய மாதிரி வாகனம் ₹20 லட்சத்திற்குள் விற்பனை செய்யப்படும் என எதிர்பார்க்கப்படுகிறது. இந்த வாகனம் இந்திய சாலைகளுக்கு ஏற்றவாறு வடிவமைக்கப்படும்.",
+                image: "https://via.placeholder.com/600x400/cccccc/333333?text=டெஸ்லா+இந்தியா",
+                time: "12 மணி நேரம் முன்பு"
+            }
+        ];
 
-          const clean= item.description.replace(/<img[^>]*>/g,'').replace(/<\/?[^>]+(>|$)/g,'').trim();
-          const words = clean.split(" ");
-          const summary = words.slice(0,40).join(" ");
-          const extra = words.slice(40,80).join(" ");
-
-          card.innerHTML = `
-            <div class="news-content">
-              <div class="news-title">${item.title}</div>
-              <div class="news-summary">${summary}<span class="dots">...</span><span class="full-text">${extra}</span></div>
-              ${extra ? <button class="read-more">மேலும் வாசிக்க</button> : ''}
-            </div>
-            ${img ? <div class="news-image"><img src="${img}" alt="Image"></div> : ''}
-          `;
-
-          const btn = card.querySelector(".read-more");
-          if (btn) {
-            btn.addEventListener("click", () => {
-              card.querySelector(".full-text").style.display = "inline";
-              card.querySelector(".dots").style.display = "none";
-              btn.style.display = "none";
+        // Function to display news
+        function displayNews() {
+            const container = document.getElementById('news-container');
+            container.innerHTML = '';
+            
+            techNewsData.forEach((news, index) => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                
+                newsItem.innerHTML = `
+                    <div class="news-image-container">
+                        <img src="${news.image}" alt="${news.title}" class="news-image">
+                    </div>
+                    <div class="news-content">
+                        <span class="news-time">${news.time}</span>
+                        <h3 class="news-title">${news.title}</h3>
+                        <div class="news-summary short">${news.summary}</div>
+                        <div class="news-summary full">${news.summary}</div>
+                        <button class="read-more-btn" onclick="toggleReadMore(this, ${index})">மேலும் வாசிக்க</button>
+                    </div>
+                `;
+                
+                container.appendChild(newsItem);
             });
-          }
-          container.appendChild(card);
-        });
-      })
-      .catch(() => {
-        document.getElementById("news-container").innerHTML = "<p>தகவலைப் பெற முடியவில்லை. பின்னர் முயற்சிக்கவும்.</p>";
-      });
-  </script>
+        }
+
+        // Toggle read more functionality
+        function toggleReadMore(button, index) {
+            const newsItem = button.closest('.news-item');
+            const shortSummary = newsItem.querySelector('.news-summary.short');
+            const fullSummary = newsItem.querySelector('.news-summary.full');
+            
+            if (fullSummary.style.display === 'block') {
+                fullSummary.style.display = 'none';
+                shortSummary.style.display = '-webkit-box';
+                button.textContent = 'மேலும் வாசிக்க';
+                button.classList.remove('expanded');
+            } else {
+                fullSummary.style.display = 'block';
+                shortSummary.style.display = 'none';
+                button.textContent = 'குறைவாக வாசிக்க';
+                button.classList.add('expanded');
+            }
+        }
+
+        // Initialize news on page load
+        document.addEventListener('DOMContentLoaded', displayNews);
+    </script>
 </body>
 </html>
