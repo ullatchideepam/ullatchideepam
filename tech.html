@@ -14,24 +14,24 @@
 
     h1 {
       text-align: center;
-      color: #b30000;
+      color: #0066cc;
       font-size: 34px;
       margin: 25px 0;
-      border-bottom: 3px solid #e60000;
+      border-bottom: 3px solid #0088ee;
       padding-bottom: 10px;
-      text-shadow: 1px 1px 2px #ffcccc;
+      text-shadow: 1px 1px 2px #cceeff;
     }
 
     .news-card {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      background: linear-gradient(to right, #ffffff, #fff9f2);
-      border: 1px solid #ddd;
-      border-left: 5px solid #e60000;
+      background: linear-gradient(to right, #ffffff, #f4fbff);
+      border: 1px solid #cce5ff;
+      border-left: 5px solid #0088ee;
       border-radius: 14px;
       padding: 20px;
-      margin: 25px auto;
+      margin: 20px auto;
       max-width: 1000px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease;
@@ -47,14 +47,14 @@
     }
 
     .news-title {
-      color: #003366;
+      color: #004080;
       font-size: 22px;
       font-weight: bold;
       margin-bottom: 12px;
     }
 
     .news-summary {
-      background-color: #f9f5f0;
+      background-color: #e6f3ff;
       padding: 10px 15px;
       border-radius: 10px;
       font-size: 17px;
@@ -64,7 +64,7 @@
     }
 
     .read-more {
-      background-color: #e60000;
+      background-color: #0088ee;
       color: white;
       padding: 8px 16px;
       border: none;
@@ -76,7 +76,7 @@
     }
 
     .read-more:hover {
-      background-color: #b30000;
+      background-color: #005bb5;
     }
 
     .full-text {
@@ -99,6 +99,7 @@
       .news-card {
         flex-direction: column;
       }
+
       .news-image {
         max-width: 100%;
         margin-top: 15px;
@@ -108,11 +109,11 @@
 </head>
 <body>
 
-  <h1>🖥️ தொழில்நுட்ப செய்திகள் (Tech News)</h1>
+  <h1>🧠 தொழில்நுட்ப செய்திகள் (Tech News)</h1>
   <div id="news-container"></div>
 
   <script>
-    const rssToJson = "https://api.rss2json.com/v1/api.json?rss_url=https://www.theverge.com/rss/index.xml";
+    const rssToJson = "https://api.rss2json.com/v1/api.json?rss_url=https://tamil.goodreturns.in/rss/feeds/tamil-technology-fb.xml";
 
     fetch(rssToJson)
       .then(response => response.json())
@@ -120,11 +121,10 @@
         const container = document.getElementById("news-container");
         const newsList = data.items.slice(0, 10);
 
-        newsList.forEach((item) => {
+        newsList.forEach(item => {
           const card = document.createElement("div");
           card.className = "news-card";
 
-          // Get image
           let imageURL = "";
           if (item.thumbnail && item.thumbnail !== "") {
             imageURL = item.thumbnail;
@@ -133,7 +133,6 @@
             imageURL = imgMatch ? imgMatch[1] : "";
           }
 
-          // Clean up text
           const cleanedText = item.description
             .replace(/<img[^>]*>/g, '')
             .replace(/<\/?[^>]+(>|$)/g, "")
@@ -143,7 +142,6 @@
           const shortSummary = words.slice(0, 50).join(" ");
           const extendedSummary = words.slice(50, 100).join(" ");
 
-          // Fill HTML
           card.innerHTML = `
             <div class="news-content">
               <div class="news-title">${item.title}</div>
@@ -156,7 +154,6 @@
             ${imageURL ? `<div class="news-image"><img src="${imageURL}" alt="செய்தி படம்"></div>` : ''}
           `;
 
-          // Add interaction
           const button = card.querySelector(".read-more");
           if (button) {
             button.addEventListener("click", () => {
@@ -170,7 +167,7 @@
         });
       })
       .catch(err => {
-        document.getElementById("news-container").innerHTML = "<p>செய்திகளை பெற முடியவில்லை.</p>";
+        document.getElementById("news-container").innerHTML = "<p>தகவலை பெற முடியவில்லை. தயவு செய்து பின்னர் முயற்சிக்கவும்.</p>";
       });
   </script>
 
