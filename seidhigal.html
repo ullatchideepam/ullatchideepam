@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <title>செய்திகள் | உள்ளாட்சி தீபம்</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      background-color: #fffdf7;
+      margin: 0;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #b30000;
+      font-size: 34px;
+      margin: 25px 0;
+      border-bottom: 3px solid #e60000;
+      padding-bottom: 10px;
+      text-shadow: 1px 1px 2px #ffcccc;
+    }
+
+    .news-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: linear-gradient(to right, #ffffff, #fff9f2);
+      border: 1px solid #ddd;
+      border-left: 5px solid #e60000;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 25px auto;
+      max-width: 1000px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+      gap: 20px;
+    }
+
+    .news-card:hover {
+      transform: scale(1.01);
+    }
+
+    .news-content {
+      flex: 3;
+    }
+
+    .news-title {
+      color: #003366;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .news-summary {
+      background-color: #f9f5f0;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 17px;
+      color: #333;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    .read-more {
+      background-color: #e60000;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      margin-top: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .read-more:hover {
+      background-color: #b30000;
+    }
+
+    .full-text {
+      display: none;
+    }
+
+    .news-image {
+      flex: 1;
+      max-width: 25%;
+    }
+
+    .news-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
+      .news-card {
+        flex-direction: column;
+      }
+      .news-image {
+        max-width: 100%;
+        margin-top: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📢 நேரலை செய்திகள் (உள்ளாட்சி தீபம்)</h1>
+  <div id="news-container"></div>
+
+  <script>
+    const rssToJson = "https://api.rss2json.com/v1/api.json?rss_url=https://www.bbc.co.uk/tamil/index.xml";
+
+    fetch(rssToJson)
+      .then(response => response.json())
+      .then(data => {
+        const container = document.getElementById("news-container");
+        const newsList = data.items.slice(0, 12);
+
+        newsList.forEach((item, index) => {
+          const card = document.createElement("div");
+          card.className = "news-card";
+
+          // Get image if available
+          let imageURL = "";
+          if (item.thumbnail && item.thumbnail !== "") {
+            imageURL = item.thumbnail;
+          } else {
+            const imgMatch = item.description.match(/<img[^>]+src="([^">]+)"/);
+            imageURL = imgMatch ? imgMatch[1] : "";
+          }
+
+          // Clean text and separate summary
+          const cleanedText = item.description
+            .replace(/<img[^>]*>/g, '')
+            .replace(/<\/?[^>]+(>|$)/g, "")
+            .trim();
+
+          const words = cleanedText.split(" ");
+          const shortSummary = words.slice(0, 60).join(" ");
+          const extendedSummary = words.slice(60, 120).join(" ");
+
+          // Add content to card
+          card.innerHTML = `
+            <div class="news-content">
+              <div class="news-title">${item.title}</div>
+              <div class="news-summary">
+                ${shortSummary}<span class="dots">...</span>
+                <span class="full-text">${extendedSummary}</span>
+              </div>
+              ${extendedSummary ? `<button class="read-more">மேலும் வாசிக்க</button>` : ''}
+            </div>
+            ${imageURL ? `<div class="news-image"><img src="${imageURL}" alt="செய்தி படம்"></div>` : ''}
+          `;
+
+          container.appendChild(card);
+
+          // Now button works because it's added to DOM
+          const button = card.querySelector(".read-more");
+          if (button) {
+            button.addEventListener("click", () => {
+              card.querySelector(".full-text").style.display = "inline";
+              card.querySelector(".dots").style.display = "none";
+              button.style.display = "none";
+            });
+          }
+        });
+      })
+      .catch(err => {
+        document.getElementById("news-container").innerHTML = "<p>செய்திகளை பெற முடியவில்லை.</p>";
+      });
+  </script>
+
+</body>
+</html>
