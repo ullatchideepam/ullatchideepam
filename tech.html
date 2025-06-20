@@ -5,53 +5,48 @@
   <title>தொழில்நுட்பம் | உள்ளாட்சி தீபம்</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Noto Sans Tamil', sans-serif; background:#fffdf7; margin:0; padding:0 20px; }
+    body { font-family:'Noto Sans Tamil'; background:#fffdf7; margin:0; padding:0 20px; }
     h1 { text-align:center; color:#0066cc; font-size:34px; margin:25px 0; border-bottom:3px solid #0088ee; padding-bottom:10px; }
-    .news-card { display:flex; background:#f0f8ff; border:1px solid #cce; border-left:5px solid #0088ee; border-radius:12px; padding:20px; margin:20px auto; max-width:1000px; box-shadow:0 4px 8px rgba(0,0,0,0.08); gap:15px; transition:transform 0.3s; }
+    .news-card { display:flex; background:#f0f8ff; border:1px solid #cde; border-left:5px solid #0088ee; border-radius:12px; padding:20px; margin:20px auto; max-width:1000px; box-shadow:0 4px 8px rgba(0,0,0,0.08); gap:15px; transition:transform .3s; }
     .news-card:hover { transform:scale(1.01); }
     .news-content { flex:3; }
     .news-title { color:#004080; font-size:20px; font-weight:bold; margin-bottom:10px; }
     .news-summary { background:#e8f4ff; padding:10px 12px; border-radius:8px; font-size:16px; line-height:1.6; text-align:justify; }
-    .read-more { background:#0088ee; color:#fff; padding:6px 14px; border:none; border-radius:20px; font-size:14px; margin-top:10px; cursor:pointer; }
+    .read-more { background:#0088ee; color:white; padding:6px 14px; border:none; border-radius:20px; font-size:14px; margin-top:10px; cursor:pointer; }
     .read-more:hover { background:#005bb5; }
     .full-text { display:none; }
     .news-image { flex:1; max-width:25%; }
     .news-image img { width:100%; border-radius:10px; box-shadow:0 3px 6px rgba(0,0,0,0.12); }
-    @media (max-width:768px){ .news-card { flex-direction:column; } .news-image { max-width:100%; margin-top:12px; } }
+    @media(max-width:768px){ .news-card { flex-direction:column; } .news-image { max-width:100%; margin-top:12px; } }
   </style>
 </head>
 <body>
-  <h1> தொழில்நுட்ப செய்திகள்</h1>
+  <h1>🖥 தொழில்நுட்ப செய்திகள்</h1>
   <div id="news-container"></div>
-
   <script>
-    const rssToJson = 
-      "https://api.rss2json.com/v1/api.json?rss_url=https://tamil.oneindia.com/rss/feeds/tamil-technology-fb.xml";
-
-    fetch(rssToJson)
+    const rssUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://tamil.oneindia.com/rss/feeds/tamil-technology-fb.xml";
+    fetch(rssUrl)
       .then(res => res.json())
       .then(data => {
         const container = document.getElementById("news-container");
-        data.items.slice(0, 10).forEach(item => {
+        data.items.slice(0,10).forEach(item => {
           const card = document.createElement("div");
           card.className = "news-card";
 
-          let imageURL = item.thumbnail || (item.description.match(/<img[^>]+src="([^">]+)"/) || [])[1] || "";
+          let img = item.thumbnail || (item.description.match(/<img[^>]+src="([^">]+)"/) || [])[1] || "";
 
-          const clean = item.description.replace(/<img[^>]*>/g,'').replace(/<\/?[^>]+(>|$)/g,'').trim();
+          const clean= item.description.replace(/<img[^>]*>/g,'').replace(/<\/?[^>]+(>|$)/g,'').trim();
           const words = clean.split(" ");
-          const shortSummary = words.slice(0, 50).join(" ");
-          const extra = words.slice(50, 100).join(" ");
+          const summary = words.slice(0,40).join(" ");
+          const extra = words.slice(40,80).join(" ");
 
           card.innerHTML = `
             <div class="news-content">
               <div class="news-title">${item.title}</div>
-              <div class="news-summary">
-                ${shortSummary}<span class="dots">...</span><span class="full-text">${extra}</span>
-              </div>
-              ${extra ? `<button class="read-more">மேலும் வாசிக்க</button>` : ''}
+              <div class="news-summary">${summary}<span class="dots">...</span><span class="full-text">${extra}</span></div>
+              ${extra ? <button class="read-more">மேலும் வாசிக்க</button> : ''}
             </div>
-            ${imageURL ? `<div class="news-image"><img src="${imageURL}" alt="Image"></div>` : ''}
+            ${img ? <div class="news-image"><img src="${img}" alt="Image"></div> : ''}
           `;
 
           const btn = card.querySelector(".read-more");
@@ -62,7 +57,6 @@
               btn.style.display = "none";
             });
           }
-
           container.appendChild(card);
         });
       })
@@ -72,4 +66,3 @@
   </script>
 </body>
 </html>
-
