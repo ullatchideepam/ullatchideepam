@@ -128,6 +128,64 @@
     transform: translateX(-100%);
   }
 }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+      background: #fff;
+      padding: 15px 0;
+      border-top: 3px solid #ddd;
+      border-bottom: 3px solid #ddd;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      animation: scroll-left 30s linear infinite;
+    }
+
+    .marquee-container:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-track img {
+      height: 180px;
+      margin-right: 30px;
+      border-radius: 10px;
+      vertical-align: middle;
+      transition: transform 0.3s;
+    }
+
+    .marquee-track img:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* For touch devices: pause on tap (CSS only workaround using focus-within) */
+    .marquee-container:focus-within .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .dummy-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+  
 
   </style>
 </head>
@@ -165,6 +223,25 @@
       <li><a href="idhal.html">Magazine</a></li>
       <li><a href="contact.html">தொடர்புக்கு </a></li>
     </ul>
+  <!-- Dummy input for touch pause support -->
+  <input class="dummy-input" type="text" />
+
+  <div class="marquee-container" tabindex="0">
+    <div class="marquee-track">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/04.jpg" alt="04">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/05.jpg" alt="05">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/1.jpg" alt="1">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/2.jpg" alt="2">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/3.jpg" alt="3">
+    </div>
+  </div>
+
+</body>
+
+
  
 
  
