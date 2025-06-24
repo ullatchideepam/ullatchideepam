@@ -22,24 +22,12 @@
       text-align: center;
     }
 
-    .logo {
-      max-width: 250px;
-      border-radius: 8px;
-    }
-
     .sections {
       background-color: #fff0e6;
       padding: 20px;
       margin: 20px;
       border-radius: 12px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    .sections h2 {
-      color: #e6005c;
-      font-size: 26px;
-      text-align: center;
-      margin-bottom: 15px;
     }
 
     .sections ul {
@@ -60,23 +48,43 @@
       font-size: 18px;
     }
 
-    /* 🧑‍💻 Author Banner - Small, text only */
+    /* Author Banner Scroll */
     .author-marquee {
+      overflow: hidden;
       background: #fffacd;
-      padding: 10px 15px;
-      text-align: center;
       border-top: 2px solid #e6b800;
       border-bottom: 2px solid #e6b800;
-      font-size: 16px;
-      color: #b30000;
-      font-weight: bold;
-      line-height: 1.4;
+      padding: 10px 0;
     }
 
-    /* Swiper Styles */
+    .author-track {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll-left 15s linear infinite;
+    }
+
+    .author-track span {
+      font-size: 18px;
+      color: #b30000;
+      font-weight: bold;
+      padding-left: 100%;
+    }
+
+    .author-track a {
+      color: #b30000;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Swiper Gallery */
     .swiper {
       width: 100%;
-      height: 90vh;
+      height: 85vh;
       margin-top: 30px;
     }
 
@@ -88,7 +96,7 @@
 
     .swiper-slide img {
       width: 90%;
-      height: 80vh;
+      height: 75vh;
       object-fit: cover;
       border-radius: 20px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -113,24 +121,51 @@
       border-radius: 10px;
     }
 
+    /* Floating YouTube Button */
+    .youtube-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: red;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
 
-  <!-- 🔷 Logo Header -->
+  <!-- Logo -->
   <header>
     <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/ullatchideepam.jpg"
          alt="Ullatchideepam Logo"
          style="width: 100%; height: auto; border-radius: 9px;">
   </header>
 
-  <!-- 🧑‍💻 Author Banner (Small Text Only) -->
-  <div class="author-marquee">
-    ✍️ இரா. அய்யப்பன் – ஆசிரியர்<br>
-    தொடர்புக்கு: 94899 19194
+  <!-- Author Image -->
+  <div style="text-align: center; margin: 15px 0;">
+    <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/ig.jpg"
+         alt="Author Photo"
+         style="width: 180px; height: auto; border-radius: 12px; border: 2px solid #004080; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
   </div>
 
-  <!-- 🔗 Section Navigation -->
+  <!-- Author Banner Marquee -->
+  <div class="author-marquee">
+    <div class="author-track">
+      <span>
+        ✍️ இரா. அய்யப்பன் – ஆசிரியர் | தொடர்புக்கு: 94899 19194 | 📺 
+        <a href="https://www.youtube.com/@%E0%AE%89%E0%AE%B3%E0%AF%8D%E0%AE%B3%E0%AE%BE%E0%AE%9F%E0%AF%8D%E0%AE%9A%E0%AE%BF%E0%AE%A4%E0%AF%80%E0%AE%AA%E0%AE%AE%E0%AF%8D" target="_blank">
+          YouTube சேனலை பார்வையிடுங்கள்
+        </a> ✍️ இரா. அய்யப்பன் – ஆசிரியர் |
+      </span>
+    </div>
+  </div>
+
+  <!-- Menu -->
   <section class="sections">
     <ul>
       <li><a href="#">GALLERY</a></li>
@@ -143,9 +178,10 @@
     </ul>
   </section>
 
-  <!-- 📸 Swiper Image Slider -->
+  <!-- Gallery Swiper -->
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/0.jpg" alt="0"></div>
       <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01"></div>
       <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02"></div>
       <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03"></div>
@@ -156,18 +192,23 @@
     </div>
   </div>
 
-  <!-- 🔍 Fullscreen Zoomed View -->
+  <!-- Fullscreen Viewer -->
   <div id="fullscreenImage" onclick="this.style.display='none'">
     <img id="fullscreenImg" src="" alt="Full Image" />
   </div>
 
+  <!-- Floating YouTube Button -->
+  <a href="https://www.youtube.com/@%E0%AE%89%E0%AE%B3%E0%AF%8D%E0%AE%B3%E0%AE%BE%E0%AE%9F%E0%AF%8D%E0%AE%9A%E0%AE%BF%E0%AE%A4%E0%AF%80%E0%AE%AA%E0%AE%AE%E0%AF%8D" class="youtube-button" target="_blank">
+    📺 YouTube
+  </a>
+
   <!-- Swiper JS -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-  <!-- JS Logic -->
+  <!-- Image Fullscreen JS -->
   <script>
     const swiper = new Swiper(".mySwiper", {
-      slidesPerView: 2,
+      slidesPerView: 1, // Show 1 image only
       spaceBetween: 30,
       loop: true,
       autoplay: {
@@ -176,7 +217,7 @@
       }
     });
 
-    // Double click or tap to enlarge
+    // Double tap or click to view fullscreen
     const images = document.querySelectorAll('.swiper-slide img');
     let lastTap = 0;
 
@@ -204,4 +245,5 @@
 
 </body>
 </html>
+
 
