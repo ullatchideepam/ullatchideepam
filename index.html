@@ -183,19 +183,22 @@
        style="width: 200px; height:300px; border-radius: 9px;">
 </div>
 
-  <!-- Gallery Swiper -->
-  <div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">>
-    <div class="swiper-wrapper">
+
       <!-- Gallery Swiper -->
 <div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">
   <div class="swiper-wrapper">
-    <div class="swiper-slide" style="width: 200px;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/0.jpg" alt="0" style="height: 200px;"></div>
-    <div class="swiper-slide" style="width: 200px;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01" style="height: 200px;"></div>
-    <div class="swiper-slide" style="width: 200px;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02" style="height: 200px;"></div>
-    <div class="swiper-slide" style="width: 200px;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03" style="height: 200px;"></div>
-    <div class="swiper-slide" style="width: 200px;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/04.jpg" alt="04" style="height: 200px;"></div>
-    <div class="swiper-slide" style="width: 200px;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/05.jpg" alt="05" style="height: 200px;"></div>
+    <!-- Gallery Swiper -->
+<div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/0.jpg" alt="0" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/04.jpg" alt="04" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/05.jpg" alt="05" style="height: 200px;"></div>
   </div>
+
+
 </div>
 
     </div>
@@ -221,21 +224,24 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <script>
+ <!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
   const swiper = new Swiper(".mySwiper", {
     slidesPerView: 'auto',
-    spaceBetween: 30,
+    spaceBetween: 10,
     loop: true,
     freeMode: true,
     freeModeMomentum: false,
     allowTouchMove: false,
     autoplay: {
-      delay: 0, // super fast
+      delay: 0,
       disableOnInteraction: false,
     },
-    speed: 2000, // adjust this for scroll speed
+    speed: 3000
   });
 
-  // Fullscreen Image Logic
   const images = document.querySelectorAll('.swiper-slide img');
   let lastTap = 0;
 
@@ -260,6 +266,7 @@
     document.getElementById('fullscreenImage').style.display = 'flex';
   }
 </script>
+
 
 
 </body>
