@@ -179,24 +179,25 @@
   <p style="background-color: red; color: white; padding: 10px; border-radius: 6px; font-size: 18px; font-weight: bold;">Breaking News</p>
 
 <div style="display: flex; gap: 10px;">
-  <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/6.jpg" 
-       style="width: 500px; height: auto; border-radius: 9px;">
-
   <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/7.jpg" 
-       style="width: 500px; height: auto; border-radius: 9px;">
+       style="width: 200px; height:300px; border-radius: 9px;">
 </div>
 
   <!-- Gallery Swiper -->
   <div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">>
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/0.jpg" alt="0"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/04.jpg" alt="04"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/05.jpg" alt="05"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/1.jpg" alt="1"></div>
-      <div class="swiper-slide"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/2.jpg" alt="2"></div>
+      <!-- Gallery Swiper -->
+<div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/0.jpg" alt="0" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/04.jpg" alt="04" style="height: 200px;"></div>
+    <div class="swiper-slide" style="width: auto;"><img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/05.jpg" alt="05" style="height: 200px;"></div>
+  </div>
+</div>
+
     </div>
   </div>
 
@@ -211,45 +212,51 @@
   </a>
 
   <!-- Swiper JS -->
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- Swiper JS -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 
   <!-- Image Fullscreen JS -->
   <script>
-    const swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1, // Show 1 image only
-      spaceBetween: 30,
-      loop: true,
-      autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
-      }
+  const swiper = new Swiper(".mySwiper", {
+    slidesPerView: 'auto',
+    spaceBetween: 30,
+    loop: true,
+    speed: 5000,
+    autoplay: {
+      delay: 1,
+      disableOnInteraction: false,
+    },
+    freeMode: true,
+    freeModeMomentum: false,
+    allowTouchMove: false
+  });
+
+  const images = document.querySelectorAll('.swiper-slide img');
+  let lastTap = 0;
+
+  images.forEach(img => {
+    img.addEventListener('dblclick', () => {
+      showFullscreen(img.src);
     });
 
-    // Double tap or click to view fullscreen
-    const images = document.querySelectorAll('.swiper-slide img');
-    let lastTap = 0;
-
-    images.forEach(img => {
-      img.addEventListener('dblclick', () => {
+    img.addEventListener('touchstart', e => {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      if (tapLength < 300 && tapLength > 0) {
         showFullscreen(img.src);
-      });
-
-      img.addEventListener('touchstart', e => {
-        const currentTime = new Date().getTime();
-        const tapLength = currentTime - lastTap;
-        if (tapLength < 300 && tapLength > 0) {
-          showFullscreen(img.src);
-          e.preventDefault();
-        }
-        lastTap = currentTime;
-      });
+        e.preventDefault();
+      }
+      lastTap = currentTime;
     });
+  });
 
-    function showFullscreen(src) {
-      document.getElementById('fullscreenImg').src = src;
-      document.getElementById('fullscreenImage').style.display = 'flex';
-    }
-  </script>
+  function showFullscreen(src) {
+    document.getElementById('fullscreenImg').src = src;
+    document.getElementById('fullscreenImage').style.display = 'flex';
+  }
+</script>
+
 
 </body>
 </html>
