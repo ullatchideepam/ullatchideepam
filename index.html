@@ -177,38 +177,28 @@
 
   
   <p style="background-color: red; color: white; padding: 10px; border-radius: 6px; font-size: 18px; font-weight: bold;">Breaking News</p>
-
-<div style="display: flex; gap: 10px;">
-  <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/7.jpg" 
-       style="width: 200px; height:300px; border-radius: 9px;">
-</div>
-
-
-      <!-- Gallery Swiper -->
-<div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">
-  <div class="swiper-wrapper">
-    <!-- Gallery Swiper -->
-<div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px;">
-  <div class="swiper-wrapper">
-   <!-- Gallery Swiper - Running Banner Style -->
+<!-- Gallery Swiper Banner -->
 <div class="swiper mySwiper" style="width: 100%; height: auto; border-radius: 9px; margin-top: 20px;">
   <div class="swiper-wrapper">
-    <div class="swiper-slide" style="width: 200px;">
+    <div class="swiper-slide" style="width: 250px;">
+      <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/7.jpg" alt="0" style="width: 100%; height: auto; border-radius: 9px;">
+    </div>
+    <div class="swiper-slide" style="width: 250px;">
       <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/0.jpg" alt="0" style="width: 100%; height: auto; border-radius: 9px;">
     </div>
-    <div class="swiper-slide" style="width: 200px;">
+    <div class="swiper-slide" style="width: 250px;">
       <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/01.jpg" alt="01" style="width: 100%; height: auto; border-radius: 9px;">
     </div>
-    <div class="swiper-slide" style="width: 200px;">
+    <div class="swiper-slide" style="width: 250px;">
       <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/02.jpg" alt="02" style="width: 100%; height: auto; border-radius: 9px;">
     </div>
-    <div class="swiper-slide" style="width: 200px;">
+    <div class="swiper-slide" style="width: 250px;">
       <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/03.jpg" alt="03" style="width: 100%; height: auto; border-radius: 9px;">
     </div>
-    <div class="swiper-slide" style="width: 200px;">
+    <div class="swiper-slide" style="width: 250px;">
       <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/04.jpg" alt="04" style="width: 100%; height: auto; border-radius: 9px;">
     </div>
-    <div class="swiper-slide" style="width: 200px;">
+    <div class="swiper-slide" style="width: 250px;">
       <img src="https://raw.githubusercontent.com/ullatchideepam/ullatchideepam/main/05.jpg" alt="05" style="width: 100%; height: auto; border-radius: 9px;">
     </div>
   </div>
@@ -245,19 +235,21 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
   const swiper = new Swiper(".mySwiper", {
     slidesPerView: 'auto',
     spaceBetween: 10,
     loop: true,
-    freeMode: true,
-    freeModeMomentum: false,
-    allowTouchMove: true,
+    speed: 3000,
     autoplay: {
       delay: 0,
       disableOnInteraction: false,
     },
-    speed: 3000
+    allowTouchMove: false,
+    freeMode: false
   });
+
 
   // Double click to open fullscreen
   document.querySelectorAll('.swiper-img').forEach(img => {
