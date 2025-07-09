@@ -222,20 +222,10 @@
   </a>
 
   <!-- Swiper JS -->
-  <!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-
-  <!-- Image Fullscreen JS -->
-  <!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-<script>
  <!-- Swiper JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-<script>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
   const swiper = new Swiper(".mySwiper", {
     slidesPerView: 'auto',
@@ -250,11 +240,10 @@
     freeMode: false
   });
 
-
   // Double click to open fullscreen
-  document.querySelectorAll('.swiper-img').forEach(img => {
+  document.querySelectorAll('.swiper-slide img').forEach(img => {
     img.addEventListener('dblclick', function () {
-      const modal = document.getElementById('fullscreenModal');
+      const modal = document.getElementById('fullscreenImage'); // ✅ not 'fullscreenModal'
       const modalImg = document.getElementById('fullscreenImg');
       modalImg.src = this.src;
       modal.style.display = 'flex';
@@ -262,7 +251,7 @@
   });
 
   // Click anywhere on the modal to close it
-  document.getElementById('fullscreenModal').addEventListener('click', function () {
+  document.getElementById('fullscreenImage').addEventListener('click', function () {
     this.style.display = 'none';
   });
 </script>
